@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+        xmlns:cl="urn:entsoe.eu:wgedi:codelists"
+        xmlns:sawsdl="http://www.w3.org/ns/sawsdl"
+        attributeFormDefault="unqualified"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        >
+
+    <xsd:import schemaLocation="urn-entsoe-eu-wgedi-codelists.xsd" namespace="urn:entsoe.eu:wgedi:codelists"/>
+
+    <xsd:element name="AllocationConfigurationDocument">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element minOccurs="1" maxOccurs="1" name="mRID" type="ID_String"
+                             sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#IdentifiedObject.mRID"/>
+                <xsd:element minOccurs="1" maxOccurs="1" name="type" type="MessageKind_String"
+                             sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#Document.type"/>
+                <xsd:element minOccurs="1" maxOccurs="1" name="process.processType" type="ProcessKind_String"
+                             sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#Process.processType"/>
+                <xsd:element minOccurs="1" maxOccurs="1" name="sender_MarketParticipant.mRID" type="PartyID_String"
+                             sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#IdentifiedObject.mRID"/>
+                <xsd:element minOccurs="1" maxOccurs="1" name="sender_MarketParticipant.marketRole.type"
+                             type="MarketRoleKind_String"
+                             sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#MarketRole.type"/>
+                <xsd:element minOccurs="1" maxOccurs="1" name="receiver_MarketParticipant.mRID"
+                             type="PartyID_String"
+                             sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#IdentifiedObject.mRID"/>
+                <xsd:element minOccurs="1" maxOccurs="1" name="receiver_MarketParticipant.marketRole.type"
+                             type="MarketRoleKind_String"
+                             sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#MarketRole.type"/>
+                <xsd:element minOccurs="1" maxOccurs="1" name="createdDateTime" type="ESMP_DateTime"
+                             sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#Document.createdDateTime"/>
+                <xsd:element ref="AllocationInstance" minOccurs="1" maxOccurs="31"/>
+            </xsd:sequence>
+            <xsd:attribute name="DtdRelease" use="required"/>
+            <xsd:attribute name="DtdVersion" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="AllocationInstance">
+        <xsd:complexType>
+            <xsd:sequence>
+                <!--Allocation ID-->
+                <xsd:element ref="AllocationIdentification"/>
+                <xsd:element ref="Cancelled" minOccurs="0"/>
+
+                <xsd:element ref="Description" minOccurs="0"/>
+                <xsd:element ref="AllocationType"/>
+                <xsd:element ref="AllocationSubtype" minOccurs="0"/>
+                <xsd:element ref="AllocationMode" minOccurs="0"/>
+                <xsd:element ref="ContractType"/>
+
+                <!--Periods section-->
+                <xsd:element ref="TimeZone"/><!--Possible values: WET/WEST, CET/CEST, EET/EEST, UTC-->
+                <xsd:element ref="DeliveryPeriod"/>
+                <xsd:element ref="AllocationPeriod"/>
+                <xsd:element ref="BiddingPeriod" minOccurs="0"/>
+
+                <!--Capacity Products section-->
+                <xsd:element ref="CapacityProducts"/>
+
+                <!--Configuration of Data Providers section-->
+                <xsd:element ref="Provider" maxOccurs="unbounded"/>
+                <xsd:element ref="ConductingParty" minOccurs="0"/>
+
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!--Custom elements-->
+    <xsd:element name="AllocationIdentification" type="xsd:string"/>
+    <xsd:element name="AllocationType" type="AuctionKind_String"/>
+    <xsd:element name="AllocationSubtype" type="AllocationSubtype_String"/>
+    <xsd:element name="AllocationMode" type="AllocationModeTypeList_String"/>
+    <xsd:element name="ContractType" type="CapacityContractKind_String"/>
+    <xsd:element name="TimeZone" type="xsd:string"/>
+
+    <xsd:element name="DeliveryPeriod" type="ESMP_DateTimeInterval"/>
+    <xsd:element name="AllocationPeriod" type="ESMP_DateTimeInterval"/>
+    <xsd:element name="BiddingPeriod" type="ESMP_DateTimeInterval"/>
+    <xsd:element name="Cancelled" type="IndicatorTypeList_String"/>
+
+    <!--<xsd:element name="Provider" type="PartyID_String" />-->
+
+    <xsd:element name="Provider">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="PartyID_String">
+                    <xsd:attribute name="dataItemType" type="xsd:string" use="required"/>
+                    <!--Possible values: OfferedCapacity, AlreadyAllocatedCapacity, CapacityThirdCountrie, CongestionIncome, AuctionRevenue-->
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ConductingParty" type="PartyID_String"/>
+
+    <xsd:element name="CapacityProducts">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="CapacityProduct" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="CapacityProduct">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="InArea"/>
+                <xsd:element ref="OutArea"/>
+                <xsd:element ref="Currency"/>
+                <xsd:element ref="ClassificationCategory" minOccurs="0"/><!--Used only Allocation Type = A02 = Explicit auctions-->
+                <xsd:element ref="ClassificationSequence" minOccurs="0"/><!--Used only Allocation Type = A02 = Explicit auctions-->
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="InArea" type="PartyID_String"/>
+    <xsd:element name="OutArea" type="PartyID_String"/>
+    <xsd:element name="Currency" type="CurrencyCode_String"/>
+    <xsd:element name="ClassificationCategory" type="Category_String"/>
+    <xsd:element name="ClassificationSequence" type="xsd:integer"/>
+    <xsd:element name="Description" type="Description_String"/>
+
+    <xsd:simpleType name="Description_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AllocationSubtype_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="AllocationSubtypeList"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AllocationSubtypeList">
+        <xsd:annotation>
+            <xsd:documentation>
+                <Uid>ET0040</Uid>
+                <Definition>Identification of the method of allocation in an auction.</Definition>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:NMTOKEN">
+            <xsd:enumeration value="A06">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <CodeDescription>
+                            <Title>Shadow Auction</Title>
+                            <Definition>
+                                An explicit auction carried out in the case of the failure of an implicit auction.
+                            </Definition>
+                        </CodeDescription>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+    <xsd:simpleType name="AllocationConfigurationDocumentTypeList">
+        <xsd:annotation>
+            <xsd:documentation>
+                <Uid>ET0003_UNI</Uid>
+                <Definition>(Synonym "Message Type") The coded type of a document. The document type describes the principal characteristic of a document.</Definition>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:NMTOKEN">
+            <xsd:enumeration value="A51">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <CodeDescription>
+                            <Title>Allocation Configuration Document Type</Title>
+                            <Definition>
+                                Capacity Auction Specification Document
+                            </Definition>
+                        </CodeDescription>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AllocationConfigurationProcessTypeList">
+        <xsd:annotation>
+            <xsd:documentation>
+                <Uid>ET0020_UNI</Uid>
+                <Definition>Indicates the nature of process that the document addresses.</Definition>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:NMTOKEN">
+            <xsd:enumeration value="A07">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <CodeDescription>
+                            <Title>Allocation Configuration Process Type</Title>
+                            <Definition>
+                                Capacity Allocation
+                            </Definition>
+                        </CodeDescription>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+
+    <!--    Following types are taken from existing EDI documents (Publication and Configuration documents)-->
+    <xsd:simpleType name="MessageKind_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="cl:MessageTypeList"/>
+    </xsd:simpleType>
+
+
+    <xsd:simpleType name="ID_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="35"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ESMP_DateTime" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#DateTime">
+        <xsd:restriction base="xsd:dateTime">
+            <xsd:pattern
+                    value="((([0-9]{4})[\-](0[13578]|1[02])[\-](0[1-9]|[12][0-9]|3[01])|([0-9]{4})[\-]((0[469])|(11))[\-](0[1-9]|[12][0-9]|30))T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])Z)|(([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])[\-](02)[\-](0[1-9]|1[0-9]|2[0-9])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])Z)|(([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])[\-](02)[\-](0[1-9]|1[0-9]|2[0-8])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])Z)"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="AreaID_String-base" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="18"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="YMDHM_DateTime" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#DateTime">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern
+                    value="((([0-9]{4})[\-](0[13578]|1[02])[\-](0[1-9]|[12][0-9]|3[01])|([0-9]{4})[\-]((0[469])|(11))[\-](0[1-9]|[12][0-9]|30))T(([01][0-9]|2[0-3]):[0-5][0-9])Z)|(([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])[\-](02)[\-](0[1-9]|1[0-9]|2[0-9])T(([01][0-9]|2[0-3]):[0-5][0-9])Z)|(([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])[\-](02)[\-](0[1-9]|1[0-9]|2[0-8])T(([01][0-9]|2[0-3]):[0-5][0-9])Z)"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="PartyID_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:simpleContent>
+            <xsd:extension base="PartyID_String-base">
+                <xsd:attribute name="codingScheme" type="cl:CodingSchemeTypeList" use="required"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:simpleType name="PartyID_String-base" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="ESMP_DateTimeInterval"
+                     sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#DateTimeInterval">
+        <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="start" type="YMDHM_DateTime"
+                         sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#DateTimeInterval.start">
+            </xsd:element>
+            <xsd:element minOccurs="1" maxOccurs="1" name="end" type="YMDHM_DateTime"
+                         sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#DateTimeInterval.end">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="ProcessKind_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="cl:ProcessTypeList"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AuctionKind_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="cl:AuctionTypeList"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AllocationModeTypeList_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="cl:AllocationModeTypeList"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IndicatorTypeList_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="cl:IndicatorTypeList"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Category_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="cl:CategoryTypeList"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CapacityContractKind_String"
+                    sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="cl:ContractTypeList"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CurrencyCode_String" sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="cl:CurrencyTypeList"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MarketRoleKind_String"
+                    sawsdl:modelReference="http://iec.ch/TC57/2013/CIM-schema-cim16#String">
+        <xsd:restriction base="cl:RoleTypeList"/>
+    </xsd:simpleType>
+
+</xsd:schema>

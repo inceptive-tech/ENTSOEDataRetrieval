@@ -1,0 +1,37 @@
+[
+    {
+        "article": "6.1.A",
+        "area": "KOSOVO",
+        "startDt": "2021-07-01T00:00:00"
+    },
+    {
+        "article": "6.1.B",
+        "area": "KOSOVO",
+        "startDt": "2021-08-01T00:00:00"
+    },
+    {
+        "article": "6.1.C",
+        "area": "KOSOVO",
+        "startDt": "2021-09-06T00:00:00"
+    }, 
+    {
+        "article": "6.1.C",
+        "area": "BOSNIA",
+        "startDt": "2123-01-01T00:00:00"
+    },
+    {
+        "article": "16.1.B&C",
+        "area": "KOSOVO",
+        "startDt": "2021-09-01T00:00:00"
+    },
+    {
+        "article": "12.1.G",
+        "area": "KOSOVO",
+        "startDt": "2021-01-01T00:00:00"
+    },
+    {
+        "article": "11.1.A.C",
+        "area": "KOSOVO",
+        "startDt": "2021-01-01T00:00:00"
+    }
+]

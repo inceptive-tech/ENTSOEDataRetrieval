@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Unavailability_MarketDocument xmlns="urn:iec62325.351:tc57wg16:451-6:outagedocument:3:0" >
+    <mRID>lewiwuvcgrkSIzbcrb5grw</mRID>
+    <revisionNumber>4</revisionNumber>
+    <type>A78</type>
+    <process.processType>A26</process.processType>
+    <createdDateTime>2019-01-16T15:58:49Z</createdDateTime>
+    <sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A450</sender_MarketParticipant.mRID>
+    <sender_MarketParticipant.marketRole.type>A32</sender_MarketParticipant.marketRole.type>
+    <receiver_MarketParticipant.mRID codingScheme="A01">10X1001A1001A450</receiver_MarketParticipant.mRID>
+    <receiver_MarketParticipant.marketRole.type>A33</receiver_MarketParticipant.marketRole.type>
+    <unavailability_Time_Period.timeInterval>
+        <start>2019-07-07T22:00Z</start>
+        <end>2019-07-19T22:00Z</end>
+    </unavailability_Time_Period.timeInterval>
+    <TimeSeries>
+        <mRID>1</mRID>
+        <businessType>A53</businessType>
+        <in_Domain.mRID codingScheme="A01">10YCS-CG-TSO---S</in_Domain.mRID>
+        <out_Domain.mRID codingScheme="A01">10YCS-SERBIATSOV</out_Domain.mRID>
+        <start_DateAndOrTime.date>2019-07-07</start_DateAndOrTime.date>
+        <start_DateAndOrTime.time>22:00:00Z</start_DateAndOrTime.time>
+        <end_DateAndOrTime.date>2019-07-19</end_DateAndOrTime.date>
+        <end_DateAndOrTime.time>22:00:00Z</end_DateAndOrTime.time>
+        <quantity_Measure_Unit.name>MAW</quantity_Measure_Unit.name>
+        <curveType>A03</curveType>
+        <Asset_RegisteredResource>
+            <mRID codingScheme="A01">10T-ME-RS-00001G</mRID>
+            <name>220kV, Pljevlja, BajinaBasta</name>
+            <asset_PSRType.psrType>B21</asset_PSRType.psrType>
+            <location.name>RS - ME</location.name>
+        </Asset_RegisteredResource>
+        <Available_Period>
+            <timeInterval>
+                <start>2019-07-07T22:00Z</start>
+                <end>2019-07-19T22:00Z</end>
+            </timeInterval>
+            <resolution>PT60M</resolution>
+            <Point>
+                <position>1</position>
+                <quantity>0</quantity>
+            </Point>
+        </Available_Period>
+        <Reason>
+            <code>A95</code>
+            <text>Maintenance</text>
+        </Reason>
+    </TimeSeries>
+    <Reason>
+        <code>B19</code>
+    </Reason>
+</Unavailability_MarketDocument>
