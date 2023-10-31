@@ -1,4 +1,4 @@
-# ENSTOEDataRetrieval
+# ENTsOEDataRetrieval
 A java library to automatically retrieve data from [ENTSOE transparency platform](https://transparency.entsoe.eu/). This project contains everything to automatically retrieve data from transparency platform, and save it as a CSV file. It may be possible that the module is unable to retrieve a part of countries/data. \
 This repository is not related in any ways with ENTSOE or transparency platform maintainers. \
 This project has been donne in the context of [AI4CZC](https://www.ai4europe.eu/business-and-industry/case-studies/ai4czc), a winner project of [I-Nergy second open call](https://i-nergy.eu/2nd-open-calls-winning-projects). \
