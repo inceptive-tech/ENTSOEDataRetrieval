@@ -20,6 +20,8 @@ Maven will build a fat jar in the project folder, named "data-retriever.jar".
 
 To run the project first you will need an ENTSOE transparency access token. For that you will need to register on the platform and then check on the [Transparency Platform RESTful API - user guide](https://transparency.entsoe.eu/content/static_content/Static%20content/web%20api/Guide.html) for the instructions.
 
+Then simply build the project or retrieve the jar from [releases](https://github.com/inceptive-tech/ENTSOEDataRetrieval/releases) page.
+
 Once you have your token, you can run (with a JDK 17 or higher) the cli : 
 ```
 java -jar data-retriever.jar -t [your_token] -s [start_date] -e [end_date] 
@@ -102,4 +104,7 @@ For any comments, subjections or requests you can reach us by opening an issue o
 This project is nor related at all with ENTSOE, ENTSOE Transparency Platform or the company developing/maintaining transparency platform. \
 
 You can get more information about transparency platform [here](https://transparency.entsoe.eu/content/static_content/Static%20content/knowledge%20base/knowledge%20base.html)
+
+## About ENTSOEDataRetrieval
+This library is a part of a project that has received funding from the European Union’s Horizon 2020 research and innovation programme under I-NERGY grant agreement No 101016508.
 
