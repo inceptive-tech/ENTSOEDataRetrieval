@@ -105,3 +105,6 @@ This project is nor related at all with ENTSOE, ENTSOE Transparency Platform or 
 
 You can get more information about transparency platform [here](https://transparency.entsoe.eu/content/static_content/Static%20content/knowledge%20base/knowledge%20base.html)
 
+## About ENTSOEDataRetrieval
+This library is a part of a project that has received funding from the European Union’s Horizon 2020 research and innovation programme under I-NERGY grant agreement No 101016508.
+
